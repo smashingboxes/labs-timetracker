@@ -20,6 +20,9 @@
         <div>
           <input type="checkbox" ng-model="input.tracking" ng-change="setReminder()"> Remind me every <input type="text" ng-model="input.every"> Minutes.
         </div>
+        <div>
+        <input type="checkbox" ng-model='search.descending'> Reverse Order
+      </div>
     </fieldset>
   </form>
 
@@ -30,20 +33,6 @@
   <ul ng-repeat="log in logs">
     <li><button ng-click='destroyLog(log)'>Delete</button>{{ log.doc.text }}</li>
   </ul>
-<form ng-model='controlWidget' ng-submit="sync()">
-    <fieldset>
-      <legend>Search/Sort/Paginate (stub) </legend>
-      <div>
-        <input placeholder="Search terms" type="text">
-        <input type="checkbox" ng-model='search.descending'> Reverse Order
-      </div>
-      <div>
-        page <input placeholder="Search terms" type="text"> of <input placeholder="Search terms" type="text">
-      </div>
-
-        <input type="submit" id="submit" value="Search">
-
-    </fieldset>
   </form>
 </body>
 </html>

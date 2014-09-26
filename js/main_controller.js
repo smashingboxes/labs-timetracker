@@ -3,13 +3,12 @@ var mainControllerFn = function($scope, $timeout, database) {
   $scope.search = {
     include_docs: true,
     descending: true,
-    limit: 4,
+    limit: 15,
     skip: 0,
     page: 0 //This is for our use.
   };
 
   $scope.page = function(direction) {
-    console.log($scope.search);
     $scope.search.skip = ($scope.search.page * $scope.search.limit)
     if (direction === 'up') {
       $scope.search.page += 1;
@@ -18,10 +17,13 @@ var mainControllerFn = function($scope, $timeout, database) {
       $scope.search.page -= 1;
       $scope.search.skip -= $scope.search.limit;
     };
-    return $scope.sync();
+    return 0;
   }
 
-  $scope.$watch('search.descending', function() {$scope.sync();});
+  $scope.$watch('search', function() {
+    console.log(4);
+    $scope.sync();
+  }, true);
 
 
   $scope.sync = function() {
