@@ -3,9 +3,16 @@ var mainControllerFn = function ($scope, $timeout, database) {
     $scope.search = {
       include_docs: true,
       descending: true,
-      limit: 10,
+      limit: 15,
       skip: 0,
-      page: 0 //This is for our use.
+      page: 0,
+      total_pages: 0 //This is for our use.
+    };
+
+    $scope.input = {
+      text: '',
+      every: 20,
+      tracking: true
     };
 
     $scope.page = function (direction) {
@@ -29,15 +36,11 @@ var mainControllerFn = function ($scope, $timeout, database) {
       database.query(function map(doc) {
         emit([doc._id]);
       }, $scope.search, function (err, response) {
+        var pages = Math.floor((response.total_rows - 1) / $scope.search.limit) + 1;
+        $scope.search.total_pages = pages;
         $scope.logs = response.rows;
         $scope.$apply();
       });
-    };
-
-    $scope.input = {
-      text: '',
-      every: 15,
-      tracking: true
     };
 
     $scope.createLog = function () {

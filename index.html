@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>Time Tracker</title>
+  <link rel="stylesheet" type="text/css" href="css/picnic.min.css">
   <script src="http://cdn.jsdelivr.net/pouchdb/3.0.6/pouchdb.min.js"></script>
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
   <script type="text/javascript" src="js/angular_config.js"></script>
@@ -10,29 +11,54 @@
 </head>
 
 <body ng-app="timeTracker" ng-controller="mainController">
-  <form ng-model='controlWidget' ng-submit="createLog()">
+<h1>20 Minute Notebook</h1>
+<p>Keep track of what you were doing with gentle reminders.</p>
+  <form ng-model='controlWidget' ng-submit="createLog()" class='panel'>
     <fieldset>
       <legend>Create Logs</legend>
         <div>
           <input placeholder="Enter a log here" type="text" ng-model="input.text">
-          <input type="submit" id="submit" value="Submit">
+          <input type="submit" id="submit" value="Submit" class="success">
         </div>
-        <div>
-          <input type="checkbox" ng-model="input.tracking" ng-change="setReminder()"> Remind me every <input type="text" ng-model="input.every"> Minutes.
-        </div>
-        <div>
-        <input type="checkbox" ng-model='search.descending'> Reverse Order
+        <label class="button primary">
+          <input type="checkbox" ng-model="input.tracking" ng-change="setReminder()">
+          <span> Remind me every {{ input.every }} minutes</span>
+        </label>
+
+        <label class="button primary">
+          <input type="checkbox" ng-model='search.descending'>
+          <span>Reverse Order</span>
+        </label>
+
+
       </div>
     </fieldset>
   </form>
+<div class="row">
+<div class="full" id="logs">
+<h2>Logs</h2>
+<button ng-click="page('down')">◀</button>
+  Page {{ search.page + 1 }} of {{ search.total_pages }}
+  <button ng-click="page('up')">▶</button>
+<table class="primary">
+<thead>
+<tr>
+<th></th>
+<th>Notes</th>
+<th>Time</th>
+</tr>
+</thead>
+<tbody ng-repeat="log in logs">
+<tr>
+<td><button ng-click='destroyLog(log)' class='error'>✘</button></td>
+<td>{{ log.doc.text }}</td>
+<td>{{ log.doc._id }}</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 
-  <h1>Logs</h1>
-  <button ng-click="page('down')">Page Back</button>
-  Page {{ search.page + 1 }}
-  <button ng-click="page('up')">Page Forward</button>
-  <ul ng-repeat="log in logs">
-    <li><button ng-click='destroyLog(log)'>Delete</button>{{ log.doc.text }}</li>
-  </ul>
-  </form>
+
 </body>
 </html>
