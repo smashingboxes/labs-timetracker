@@ -17,6 +17,7 @@ var mainControllerFn = function($scope, $timeout, database) {
       $scope.search.page -= 1;
       $scope.search.skip -= $scope.search.limit;
     };
+    $scope.sync();
     return 0;
   }
 
