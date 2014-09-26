@@ -47,10 +47,7 @@ var mainControllerFn = function($scope, $timeout, database) {
       .post({
         _id: new Date().toISOString(),
         text: $scope.input.text
-      })
-      .then(function(/*response*/) {
-        $scope.sync();
-      });
+      }).then($scope.sync);
     $scope.input.text = '';
   };
 
