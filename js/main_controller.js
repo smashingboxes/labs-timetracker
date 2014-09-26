@@ -1,11 +1,32 @@
 var mainControllerFn = function($scope, $timeout, database) {
 
+  $scope.search = {
+    include_docs: true,
+    descending: true,
+    limit: 4,
+    skip: 0,
+    page: 0 //This is for our use.
+  };
+
+  $scope.page = function(direction) {
+    console.log($scope.search)
+    $scope.search.skip = ($scope.search.page * $scope.search.limit)
+    if (direction === 'up') {
+      $scope.search.page += 1;
+      $scope.search.skip += $scope.search.limit;
+    } else {
+      $scope.search.page -= 1;
+      $scope.search.skip -= $scope.search.limit;
+    };
+    return $scope.sync();
+  }
+
   $scope.sync = function() {
 
     database.query(function map(doc) {
       emit([doc._id]);
     }
-    , {include_docs: true, descending: true}
+    , $scope.search
     , function (err, response) {
       $scope.logs = response.rows;
       $scope.$apply();
@@ -14,8 +35,8 @@ var mainControllerFn = function($scope, $timeout, database) {
 
   $scope.input = {
     text: '',
-    every: 1,
-    tracking: false
+    every: 15,
+    tracking: true
   };
 
   $scope.createLog = function() {

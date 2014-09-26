@@ -20,9 +20,26 @@
   </form>
 
   <h1>Logs</h1>
-
+  <button ng-click="page('down')">Page Back</button>
+  Page {{ search.page + 1 }}
+  <button ng-click="page('up')">Page Forward</button>
   <ul ng-repeat="log in logs">
     <li><button ng-click='destroyLog(log)'>Delete</button>{{ log.doc.text }}</li>
   </ul>
+<form ng-model='controlWidget' ng-submit="sync()">
+    <fieldset>
+      <legend>Search/Sort/Paginate</legend>
+      <div>
+        <input placeholder="Search terms" type="text">
+        <input type="checkbox"> Descending / Ascending
+      </div>
+      <div>
+        page <input placeholder="Search terms" type="text"> of <input placeholder="Search terms" type="text">
+      </div>
+
+        <input type="submit" id="submit" value="Search">
+
+    </fieldset>
+  </form>
 </body>
 </html>
