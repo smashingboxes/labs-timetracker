@@ -21,9 +21,9 @@ var mainControllerFn = function ($scope, $timeout, database) {
       return 0;
     }
 
-    $scope.$watch('search.descending', function () {
+    $scope.$watch('search', function () {
       $scope.sync();
-    });
+    }, true);
 
 
     $scope.sync = function () {
