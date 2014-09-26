@@ -9,7 +9,7 @@ var mainControllerFn = function($scope, $timeout, database) {
   };
 
   $scope.page = function(direction) {
-    console.log($scope.search)
+    console.log($scope.search);
     $scope.search.skip = ($scope.search.page * $scope.search.limit)
     if (direction === 'up') {
       $scope.search.page += 1;
@@ -20,6 +20,9 @@ var mainControllerFn = function($scope, $timeout, database) {
     };
     return $scope.sync();
   }
+
+  $scope.$watch('search.descending', function() {$scope.sync();});
+
 
   $scope.sync = function() {
 

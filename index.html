@@ -13,9 +13,13 @@
   <form ng-model='controlWidget' ng-submit="createLog()">
     <fieldset>
       <legend>Create Logs</legend>
-        <input placeholder="Enter a log here" type="text" ng-model="input.text">
-        <input type="submit" id="submit" value="Submit">
-        Every <input type="text" ng-model="input.every"> Minutes <input type="checkbox" ng-model="input.tracking" ng-change="setReminder()">
+        <div>
+          <input placeholder="Enter a log here" type="text" ng-model="input.text">
+          <input type="submit" id="submit" value="Submit">
+        </div>
+        <div>
+          <input type="checkbox" ng-model="input.tracking" ng-change="setReminder()"> Remind me every <input type="text" ng-model="input.every"> Minutes.
+        </div>
     </fieldset>
   </form>
 
@@ -28,10 +32,10 @@
   </ul>
 <form ng-model='controlWidget' ng-submit="sync()">
     <fieldset>
-      <legend>Search/Sort/Paginate</legend>
+      <legend>Search/Sort/Paginate (stub) </legend>
       <div>
         <input placeholder="Search terms" type="text">
-        <input type="checkbox"> Descending / Ascending
+        <input type="checkbox" ng-model='search.descending'> Reverse Order
       </div>
       <div>
         page <input placeholder="Search terms" type="text"> of <input placeholder="Search terms" type="text">
