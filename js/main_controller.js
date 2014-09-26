@@ -3,7 +3,7 @@ var mainControllerFn = function($scope, $timeout, database) {
   $scope.search = {
     include_docs: true,
     descending: true,
-    limit: 15,
+    limit: 10,
     skip: 0,
     page: 0 //This is for our use.
   };
@@ -20,10 +20,7 @@ var mainControllerFn = function($scope, $timeout, database) {
     return 0;
   }
 
-  $scope.$watch('search', function() {
-    console.log(4);
-    $scope.sync();
-  }, true);
+  $scope.$watch('search.descending', function() {$scope.sync();});
 
 
   $scope.sync = function() {
@@ -57,11 +54,7 @@ var mainControllerFn = function($scope, $timeout, database) {
   };
 
   $scope.destroyLog = function(log) {
-    database.remove(log.doc._id,
-      log.doc._rev, {},
-      function(/*err, response*/) {
-        $scope.sync();
-      });
+    database.remove(log.doc._id, log.doc._rev, {}, $scope.sync );
   };
 
   $scope.setReminder = function() {
