@@ -58,7 +58,8 @@ var mainControllerFn = function ($scope, $timeout, database) {
 
     $scope.setReminder = function () {
       if ($scope.input.tracking) {
-        $timeout($scope.remind, $scope.input.every * 60000);
+        if(!!$scope.reminder){ $timeout.cancel($scope.reminder);}
+        $scope.reminder = $timeout($scope.remind, $scope.input.every * 60000);
       }
     };
 
@@ -67,7 +68,7 @@ var mainControllerFn = function ($scope, $timeout, database) {
       $scope.createLog();
       $scope.setReminder();
     };
-
+    $scope.setReminder();
     $scope.sync();
   };
 
