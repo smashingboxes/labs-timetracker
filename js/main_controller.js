@@ -8,20 +8,6 @@ var mainControllerFn = function($scope, $timeout, database){
     });
   };
 
-  // // broke . . .
-  // database.changes().on('change', function (info) {
-  //   $scope.sync();
-  // }).on('created', function (info) {
-  //   // handle complete
-  //   $scope.sync();
-  // }).on('uptodate', function (info) {
-  //   // handle up-to-date
-  //   $scope.sync();
-  // }).on('error', function (err) {
-  //   alert("YOWZA!!!");
-  // });
-
-
   $scope.input = {
     text : '',
     every : 1,
@@ -30,12 +16,13 @@ var mainControllerFn = function($scope, $timeout, database){
 
   $scope.createLog = function(){
     database
-      .post({text: $scope.input.text})
-      .then(function(response) {$scope.sync();});
+      .post({_id: new Date().toISOString(),
+             text: $scope.input.text})
+      .then(function(response) {
+        $scope.sync()
+      ;});
     $scope.input.text = '';
   };
-
-
 
   $scope.destroyLog = function(log) {
     database.remove(log.doc._id,
