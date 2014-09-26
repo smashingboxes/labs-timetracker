@@ -2,7 +2,7 @@ var mainControllerFn = function($scope, $timeout, database){
   $scope.logs = [{text: 'nuthin!'}];
 
   $scope.refresh = function(){
-    database.allDocs({}, function(err, response) {
+    database.allDocs({include_docs: true}, function(err, response) {
       $scope.logs = response.rows;
     });
   };
