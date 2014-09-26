@@ -1,12 +1,12 @@
 var mainControllerFn = function($scope, $timeout, database) {
-  $scope.logs = [{
-    text: 'nuthin!'
-  }];
 
   $scope.sync = function() {
-    database.allDocs({
-      include_docs: true
-    }, function(err, response) {
+
+    database.query(function map(doc) {
+      emit([doc._id]);
+    }
+    , {include_docs: true, descending: true}
+    , function (err, response) {
       $scope.logs = response.rows;
       $scope.$apply();
     });
@@ -47,6 +47,7 @@ var mainControllerFn = function($scope, $timeout, database) {
   $scope.remind = function() {
     $scope.input.text = prompt('Hey- it looks like you havent checked in for a while. Mind telling me what you\'re doing?');
     $scope.createLog();
+    $scope.setReminder();
   };
 
   $scope.sync();
