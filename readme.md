@@ -10,5 +10,5 @@ Keep a detailed work log by writing regular activity notes. It's like a news fee
  * [ ] View logs
  * [ ] Set log reminder interval
  * [ ] Turn interval reminders on / off
- * [ ] Get log reminder
+ * [ ] Get log reminder (but only if you havent written one in past X minutes)
  * [ ] Paginate logs

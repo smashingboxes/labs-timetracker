@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Time Tracker</title>
+  <script src="http://cdn.jsdelivr.net/pouchdb/3.0.6/pouchdb.min.js"></script>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+  <script type="text/javascript" src="js/angular_config.js"></script>
+  <script type="text/javascript" src="js/database_service.js"></script>
+  <script type="text/javascript" src="js/main_controller.js"></script>
+</head>
+
+<body ng-app="timeTracker" ng-controller="mainController">
+  <form ng-model='controlWidget' ng-submit="createLog()">
+    <fieldset>
+      <legend>Create Logs</legend>
+        <input placeholder="Enter a log here" type="text" ng-model="input.text">
+        <input type="submit" id="submit" value="Submit">
+        Every <input type="text" ng-model="input.every"> Minutes <input type="checkbox" ng-model="input.tracking" ng-change="setReminder()">
+    </fieldset>
+  </form>
+
+  <h1>Logs</h1>
+
+  <ul ng-repeat="log in logs">
+    <li><button ng-click='destroyLog(log)'>Delete</button>{{ log.doc.text }}</li>
+  </ul>
+</body>
+</html>
