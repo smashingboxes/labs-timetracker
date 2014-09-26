@@ -1,8 +1,11 @@
-# Time Tracker
+# 20 Minute Notebook
 
-Keep a detailed work log by writing regular activity notes. It's like a news feed for your timesheet.
+A work log that gives you gentle reminders to document your progress.
 
-# TODOs
+## Screen shots
+![alt text](https://raw.githubusercontent.com/rickcarlino/time-tracker/master/screenshot.png)
+
+## TODOs
 
  * [X] Create log
  * [X] Delete log
