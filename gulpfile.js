@@ -1,7 +1,8 @@
 var gulp = require('gulp'),
     plugin = require('gulp-load-plugins')({camelize:true}),
-    mainBowerFiles = require('main-bower-files');
-
+    mainBowerFiles = require('main-bower-files'),
+    coffee = require('gulp-coffee'),
+    gutil = require('gulp-util');
 // Paths
 // =======================================================
 
@@ -9,7 +10,8 @@ var paths = {
   jade: 'app/**/*.jade',
   scss: 'app/assets/css/**/*.scss',
   js: 'app/assets/js/**/*.js',
-  images: 'app/assets/img/**'
+  images: 'app/assets/img/**',
+  coffee: 'app/assets/coffee/**/*.coffee'
 };
 
 
@@ -60,6 +62,15 @@ gulp.task('js', function() {
     .pipe(plugin.connect.reload());
 });
 
+// Coffee
+// =======================================================
+
+gulp.task('coffee', function() {
+  gulp.src(paths.coffee)
+    .pipe(coffee({}).on('error', gutil.log))
+    .pipe(gulp.dest('app/assets/js'))
+});
+
 
 // Images
 // =======================================================
@@ -88,6 +99,7 @@ gulp.task('copyImages', ['cleanImages'], function() {
 gulp.task('watch', ['compile'], function() {
   gulp.watch(paths.jade, ['html']);
   gulp.watch(paths.icons, ['css']);
+  gulp.watch(paths.coffee, ['coffee']);
   gulp.watch(paths.js, ['js']);
   gulp.watch(paths.images, ['copyImages']);
 });
@@ -109,4 +121,4 @@ gulp.task('connect', function() {
 // =======================================================
 
 gulp.task('default', ['watch', 'connect']);
-gulp.task('compile', ['vendor', 'html', 'css', 'js', 'copyImages'])
+gulp.task('compile', ['vendor', 'html', 'css', 'js', 'copyImages', 'coffee'])
