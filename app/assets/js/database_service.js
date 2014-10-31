@@ -1,6 +1,11 @@
-var databaseFn = function() {
-  PouchDB.enableAllDbs = true;
-  return new PouchDB('logs');
-}
+(function() {
+  var databaseFn;
 
-angular.module('timeTracker').service('database', databaseFn);
+  databaseFn = function() {
+    PouchDB.enableAllDbs = true;
+    return new PouchDB("logs");
+  };
+
+  angular.module("timeTracker").service("database", databaseFn);
+
+}).call(this);

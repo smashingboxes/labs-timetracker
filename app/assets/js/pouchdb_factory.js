@@ -1,4 +1,7 @@
-services.factory('pouchdb', function() {
-  PouchDB.enableAllDbs = true;
-  return new PouchDB('todos');
-});
+(function() {
+  services.factory("pouchdb", function() {
+    PouchDB.enableAllDbs = true;
+    return new PouchDB("todos");
+  });
+
+}).call(this);
