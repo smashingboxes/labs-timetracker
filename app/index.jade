@@ -34,7 +34,7 @@ html(lang="en")
               th
               th Notes
               th Time
-          tbody(ng-repeat='log in database.storage')
+          tbody(ng-repeat='log in db.storage')
             tr
               td
                 button.error(ng-click='destroyLog(log)') ✘

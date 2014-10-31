@@ -8,7 +8,7 @@ class Database
     @storage
 
   remove: (obj) ->
-    index = @storage.indexOf(item);
+    index = @storage.indexOf(obj);
     @storage.splice(index, 1);
     @save()
     @storage

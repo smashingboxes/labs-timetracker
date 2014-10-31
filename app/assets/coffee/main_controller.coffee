@@ -1,4 +1,5 @@
 mainControllerFn = ($scope, $timeout, database) ->
+  $scope.db = database
   $scope.search =
     include_docs: true
     descending: true
