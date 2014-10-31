@@ -27,29 +27,18 @@ mainControllerFn = ($scope, $timeout, database) ->
     return
   ), true
   $scope.sync = ->
-    database.query (map = (doc) ->
-      emit [doc._id]
-      return
-    ), $scope.search, (err, response) ->
-      pages = Math.floor((response.total_rows - 1) / $scope.search.limit) + 1
-      $scope.search.total_pages = pages
-      $scope.logs = response.rows
-      $scope.$apply()
-      return
-
-    return
+    database.save()
 
   $scope.createLog = ->
-    database.post(
+    database.add(
       _id: new Date().toISOString()
       text: $scope.input.text
-    ).then $scope.sync
+    )
+    debugger
     $scope.input.text = ""
-    return
 
   $scope.destroyLog = (log) ->
-    database.remove log.doc._id, log.doc._rev, {}, $scope.sync
-    return
+    database.remove(log)
 
   $scope.setReminder = ->
     if $scope.input.tracking
