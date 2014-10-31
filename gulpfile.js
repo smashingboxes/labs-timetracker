@@ -1,15 +1,12 @@
 var gulp = require('gulp'),
     plugin = require('gulp-load-plugins')({camelize:true}),
-    mainBowerFiles = require('main-bower-files'),
-    coffee = require('gulp-coffee'),
-    gutil = require('gulp-util');
+    mainBowerFiles = require('main-bower-files');
 // Paths
 // =======================================================
 
 var paths = {
   jade: 'app/**/*.jade',
   scss: 'app/assets/css/**/*.scss',
-  js: 'app/assets/js/**/*.js',
   images: 'app/assets/img/**',
   coffee: 'app/assets/coffee/**/*.coffee'
 };
@@ -49,26 +46,13 @@ gulp.task('css', function() {
 });
 
 
-// JS
-// =======================================================
-
-gulp.task('js', function() {
-  return gulp.src([
-      'app/assets/js/*.js',
-    ])
-    .pipe(plugin.concat('scripts.min.js'))
-    .pipe(plugin.uglify())
-    .pipe(gulp.dest('dist/assets/js'))
-    .pipe(plugin.connect.reload());
-});
-
 // Coffee
 // =======================================================
 
 gulp.task('coffee', function() {
   gulp.src(paths.coffee)
-    .pipe(coffee({}).on('error', gutil.log))
-    .pipe(gulp.dest('app/assets/js'))
+    .pipe(plugin.coffee({}).on('error', plugin.util.log))
+    .pipe(gulp.dest('dist/assets/js'))
 });
 
 
@@ -100,7 +84,6 @@ gulp.task('watch', ['compile'], function() {
   gulp.watch(paths.jade, ['html']);
   gulp.watch(paths.icons, ['css']);
   gulp.watch(paths.coffee, ['coffee']);
-  gulp.watch(paths.js, ['js']);
   gulp.watch(paths.images, ['copyImages']);
 });
 
@@ -121,4 +104,4 @@ gulp.task('connect', function() {
 // =======================================================
 
 gulp.task('default', ['watch', 'connect']);
-gulp.task('compile', ['vendor', 'html', 'css', 'js', 'copyImages', 'coffee'])
+gulp.task('compile', ['vendor', 'html', 'css', 'copyImages', 'coffee'])
