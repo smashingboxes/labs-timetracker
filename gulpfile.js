@@ -8,7 +8,7 @@ var gulp = require('gulp'),
 
 var paths = {
   jade: 'app/**/*.jade',
-  scss: 'app/assets/css/**/*.scss',
+  scss: 'app/assets/stylesheets/**/*.scss',
   images: 'app/assets/img/**',
   coffee: 'app/assets/coffee/**/*.coffee'
 };
@@ -16,6 +16,7 @@ var paths = {
 
 // Bower
 // =======================================================
+
 gulp.task('vendor', function() {
   return gulp.src(mainBowerFiles(), { 
     base: 'app/vendor/'
@@ -43,7 +44,7 @@ gulp.task('css', function() {
     .pipe(plugin.sass())
     .pipe(plugin.autoprefixer("last 1 version"))
     .pipe(plugin.minifyCss())
-    .pipe(gulp.dest('dist/assets/css'))
+    .pipe(gulp.dest('dist/assets/stylesheets'))
     .pipe(plugin.connect.reload())
 });
 
@@ -87,6 +88,7 @@ gulp.task('copyImages', ['cleanImages'], function() {
 gulp.task('watch', ['compile'], function() {
   gulp.watch(paths.jade, ['html']);
   gulp.watch(paths.icons, ['css']);
+  gulp.watch(paths.scss, ['css']);
   gulp.watch(paths.coffee, ['coffee']);
   gulp.watch(paths.images, ['copyImages']);
 });
