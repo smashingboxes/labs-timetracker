@@ -1,18 +1,19 @@
-webfonts = ->
-  WebFontConfig = google:
-    families: [
-      "Raleway:100,600"
-      "Ubuntu:400,700"
-    ]
-
-  (->
-    wf = document.createElement("script")
-    wf.src = ((if "https:" is document.location.protocol then "https" else "http")) + "://ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"
-    wf.type = "text/javascript"
-    wf.async = "true"
-    s = document.getElementsByTagName("script")[0]
-    s.parentNode.insertBefore wf, s
-  )()
-
-$(document).on "ready", webfonts
+# Export Google WebFont Config
+window.WebFontConfig = 
+    # Load some fonts from google
+    google:
+        families: ['Raleway', 'Ubuntu']
+ 
+    # ... you can do something here if you'd like
+    active: () -> 
+ 
+# Create script tag matching protocol
+s = document.createElement 'script'
+s.src = "#{if document.location.protocol is 'https:' then 'https' else 'http'}://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js"
+s.type = 'text/javascript'
+s.async = 'true'
+ 
+# Insert it before the first script tag
+s0 = (document.getElementsByTagName 'script')[0]
+s0.parentNode.insertBefore s, s0
 
