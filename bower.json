@@ -2,6 +2,7 @@
   "name": "labs-timetracker",
   "version": "0.0.1",
   "dependencies": {
+    "jeet": "~6.1.2",
   	"normalize-css": "~3.0.1"
   }
 }

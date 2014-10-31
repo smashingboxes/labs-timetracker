@@ -5,25 +5,27 @@ html(lang="en")
     meta(name="description", content="")
     meta(name="", content="width=device-width")
     title Time Tracker
-    link(rel='stylesheet', href='assets/css/styles.css')
+    link(rel='stylesheet', href='assets/stylesheets/main.css')
     script(src='http://cdn.jsdelivr.net/pouchdb/3.0.6/pouchdb.min.js')
     script(type='text/javascript', src='http://ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js')
   body(ng-app='timeTracker', ng-controller='mainController')
-    h1 200 Minute Notebook
-    p Keep track of what you were doing with gentle reminders.
-    form.panel(ng-model='controlWidget', ng-submit='createLog()')
-      fieldset
-        legend Create Logs
-        div
-          input(placeholder='Enter a log here', type='text', ng-model='input.text')
-          input#submit.success(type='submit', value='Submit')
-        label.button.primary
-          input(type='checkbox', ng-model='input.tracking', ng-change='setReminder()')
-          span  Remind me every {{ input.every }} minutes
-        label.button.primary
-          input(type='checkbox', ng-model='search.descending')
-          span Reverse Order
-    .row
+    header.header
+      h1 200 Minute Notebook
+      p Keep track of what you were doing with gentle reminders.
+    section
+      form.panel(ng-model='controlWidget', ng-submit='createLog()')
+        fieldset
+          legend Create Logs
+          div
+            input(placeholder='Enter a log here', type='text', ng-model='input.text')
+            input#submit.success(type='submit', value='Submit')
+          label.button.primary
+            input(type='checkbox', ng-model='input.tracking', ng-change='setReminder()')
+            span  Remind me every {{ input.every }} minutes
+          label.button.primary
+            input(type='checkbox', ng-model='search.descending')
+            span Reverse Order
+    section
       #logs.full
         h2 Logs
         button(ng-click='page(\'down\')') ◀

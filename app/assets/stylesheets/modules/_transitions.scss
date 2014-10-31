@@ -1,0 +1,11 @@
+@mixin transition($animation) {
+  transition: all .3s $animation;
+}
+
+%linear-trans {
+  @include transition(linear);
+}
+
+%ease-trans {
+  @include transition(ease);
+}
