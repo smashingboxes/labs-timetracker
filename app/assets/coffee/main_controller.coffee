@@ -1,13 +1,5 @@
-class MainController
-  constructor: ($timeout, database) ->
-    @$watch "search", (->
-    @sync()
-    return
-  ), true
-    @setReminder()
-    @sync()
-
-  search:
+mainControllerFn = ($scope, $timeout, database) ->
+  $scope.search =
     include_docs: true
     descending: true
     limit: 15
@@ -15,59 +7,69 @@ class MainController
     page: 0
     total_pages: 0 #This is for our use.
 
-  input:
+  $scope.input =
     text: ""
     every: 20
     tracking: true
 
-  page: (direction) ->
-    @search.skip = (@search.page * @search.limit)
+  $scope.page = (direction) ->
+    $scope.search.skip = ($scope.search.page * $scope.search.limit)
     if direction is "up"
-      @search.page += 1
-      @search.skip += @search.limit
+      $scope.search.page += 1
+      $scope.search.skip += $scope.search.limit
     else
-      @search.page -= 1
-      @search.skip -= @search.limit
+      $scope.search.page -= 1
+      $scope.search.skip -= $scope.search.limit
     0
 
-  sync: ->
+  $scope.$watch "search", (->
+    $scope.sync()
+    return
+  ), true
+  $scope.sync = ->
     database.query (map = (doc) ->
       emit [doc._id]
       return
-    ), @search, (err, response) ->
-      pages = Math.floor((response.total_rows - 1) / @search.limit) + 1
-      @search.total_pages = pages
-      @logs = response.rows
-      @$apply()
+    ), $scope.search, (err, response) ->
+      pages = Math.floor((response.total_rows - 1) / $scope.search.limit) + 1
+      $scope.search.total_pages = pages
+      $scope.logs = response.rows
+      $scope.$apply()
       return
 
-  createLog: ->
+    return
+
+  $scope.createLog = ->
     database.post(
       _id: new Date().toISOString()
-      text: @input.text
-    ).then @sync
-    @input.text = ""
+      text: $scope.input.text
+    ).then $scope.sync
+    $scope.input.text = ""
     return
 
-  destroyLog: (log) ->
-    database.remove log.doc._id, log.doc._rev, {}, @sync
+  $scope.destroyLog = (log) ->
+    database.remove log.doc._id, log.doc._rev, {}, $scope.sync
     return
 
-  setReminder: ->
-    if @input.tracking
-      $timeout.cancel @reminder  unless not @reminder
-      @reminder = $timeout(@remind, @input.every * 60000)
+  $scope.setReminder = ->
+    if $scope.input.tracking
+      $timeout.cancel $scope.reminder  unless not $scope.reminder
+      $scope.reminder = $timeout($scope.remind, $scope.input.every * 60000)
     return
 
-  remind: ->
-    @input.text = prompt("Hey- it looks like you havent checked in for a while. Mind telling me what you're doing?")
-    @createLog()
-    @setReminder()
+  $scope.remind = ->
+    $scope.input.text = prompt("Hey- it looks like you havent checked in for a while. Mind telling me what you're doing?")
+    $scope.createLog()
+    $scope.setReminder()
     return
 
-angular.module("timeTracker").controller("mainController", [
+  $scope.setReminder()
+  $scope.sync()
+  return
+
+mainController = angular.module("timeTracker").controller("mainController", [
   "$scope"
   "$timeout"
   "database"
-  MainController
+  mainControllerFn
 ])

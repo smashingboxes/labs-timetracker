@@ -1,1 +1,1 @@
-timeTracker = angular.module("timeTracker", [])
+angular.module "timeTracker", []

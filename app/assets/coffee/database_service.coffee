@@ -1,5 +1,5 @@
-databaseFn = ->
-  PouchDB.enableAllDbs = true
-  new PouchDB("logs")
-
-angular.module("timeTracker").service "database", databaseFn
+angular
+.module("timeTracker")
+.service "database", ->
+  localStorage.notes ?= []
+  return localStorage.notes
