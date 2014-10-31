@@ -22,19 +22,11 @@ mainControllerFn = ($scope, $timeout, database) ->
       $scope.search.skip -= $scope.search.limit
     0
 
-  $scope.$watch "search", (->
-    $scope.sync()
-    return
-  ), true
   $scope.sync = ->
     database.save()
 
   $scope.createLog = ->
-    database.add(
-      _id: new Date().toISOString()
-      text: $scope.input.text
-    )
-    debugger
+    database.add(_id: new Date().toISOString(), text: $scope.input.text)
     $scope.input.text = ""
 
   $scope.destroyLog = (log) ->
@@ -44,17 +36,14 @@ mainControllerFn = ($scope, $timeout, database) ->
     if $scope.input.tracking
       $timeout.cancel $scope.reminder  unless not $scope.reminder
       $scope.reminder = $timeout($scope.remind, $scope.input.every * 60000)
-    return
 
   $scope.remind = ->
     $scope.input.text = prompt("Hey- it looks like you havent checked in for a while. Mind telling me what you're doing?")
     $scope.createLog()
     $scope.setReminder()
-    return
 
   $scope.setReminder()
   $scope.sync()
-  return
 
 mainController = angular.module("timeTracker").controller("mainController", [
   "$scope"
