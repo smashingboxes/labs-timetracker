@@ -16,6 +16,7 @@ var paths = {
 
 // Bower
 // =======================================================
+
 gulp.task('vendor', function() {
   return gulp.src(mainBowerFiles(), { 
     base: 'app/vendor/'
