@@ -54,8 +54,8 @@ gulp.task('css', function() {
 
 gulp.task('coffee', function() {
   gulp.src(paths.coffee)
-    .pipe(plugin.concat('scripts.min.js'))
     .pipe(plugin.coffee({}).on('error', plugin.util.log))
+    .pipe(plugin.concat('scripts.min.js'))
     .pipe(gulp.dest('dist/assets/js'))
     .pipe(plugin.connect.reload());
 });
