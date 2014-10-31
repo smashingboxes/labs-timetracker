@@ -1,6 +1,8 @@
 var gulp = require('gulp'),
     plugin = require('gulp-load-plugins')({camelize:true}),
     mainBowerFiles = require('main-bower-files');
+
+
 // Paths
 // =======================================================
 
@@ -51,8 +53,10 @@ gulp.task('css', function() {
 
 gulp.task('coffee', function() {
   gulp.src(paths.coffee)
+    .pipe(plugin.concat('scripts.min.js'))
     .pipe(plugin.coffee({}).on('error', plugin.util.log))
     .pipe(gulp.dest('dist/assets/js'))
+    .pipe(plugin.connect.reload());
 });
 
 
