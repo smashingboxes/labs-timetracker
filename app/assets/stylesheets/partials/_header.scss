@@ -1,7 +1,6 @@
 .header {
   @extend %container;
-  background: $color-primary;
-  font-size: rem(22);
   overflow: hidden;
+  text-align: center;
 }
 
